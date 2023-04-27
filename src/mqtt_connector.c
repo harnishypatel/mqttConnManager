@@ -412,8 +412,6 @@ bool cm_mqtt_init()
 
 	mosquitto_lib_init();
 
-	mosquitto_int_option(mosq, MOSQ_OPT_PROTOCOL_VERSION, MQTT_PROTOCOL_V5);
-
 	int clean_session = true;
 
 	MqttCMInfo("g_ClientID fetched from get_deviceMAC_Mqtt is %s\n", g_ClientID);
@@ -467,7 +465,7 @@ bool cm_mqtt_init()
 				MqttCMError("Error initializing mosq instance\n");
 				return MOSQ_ERR_NOMEM;
 			}
-
+			mosquitto_int_option(mosq, MOSQ_OPT_PROTOCOL_VERSION, MQTT_PROTOCOL_V5);
 			struct libmosquitto_tls *tls;
 			tls = malloc (sizeof (struct libmosquitto_tls));
 			if(tls)
